@@ -3,7 +3,8 @@ import logo from "./logo.svg";
 import "./App.css";
 import TodoList from "./components/TodoList";
 import { Provider } from "react-redux";
-import store from "./store";
+// import store from "./store";
+import store from "./store/indexDucks";
 
 function App() {
   return (

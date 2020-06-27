@@ -1,55 +1,31 @@
-// types
-export const Types = {
-  ADD: "todos/ADD",
-  TOGGLE: "todos/TOGGLE",
-  REMOVE: "todos/REMOVE",
-};
+import { createActions, createReducer } from "reduxsauce";
 
-// reducers
+// criando actions types e os creators
+
+export const { Types, Creators } = createActions({
+  addTodo: ["text"],
+  toggleTodo: ["id"],
+  removeTodo: ["id"],
+});
+// reducers handles
 const INITIAL_STATE = [];
 
-export default function todos(state = INITIAL_STATE, action) {
-  console.log("PASSANDO NO REDUCER");
-  switch (action.type) {
-    case Types.ADD:
-      return [
-        ...state,
-        { id: Math.random(), text: action.payload.text, complete: false },
-      ];
+const add = (state = INITIAL_STATE, action) => [
+    ...state,
+    { id: Math.random(), text: action.text, complete: false }
+  ];
 
-    case Types.TOGGLE:
-      return state.map((todo) =>
-        todo.id === action.payload.id
-          ? { ...todo, complete: !todo.complete }
-          : todo
-      );
+const toggle = (state = INITIAL_STATE, action) =>
+  state.map((todo) =>
+    todo.id === action.id ? { ...todo, complete: !todo.complete } : todo
+  );
 
-    case Types.REMOVE:
-      return state.filter((todo) => todo.id !== action.payload.id);
+const remove = (state = INITIAL_STATE, action) =>
+  state.filter((todo) => todo.id !== action.id);
 
-    default:
-      return state;
-  }
-}
-
-// actions
-export const Creators = {
-  addTodo: (text) => ({
-    type: Types.ADD,
-    payload: {
-      text,
-    },
-  }),
-  toggleTodo: (id) => ({
-    type: Types.TOGGLE,
-    payload: {
-      id,
-    },
-  }),
-  removeTodo: (id) => ({
-    type: Types.REMOVE,
-    payload: {
-      id,
-    },
-  }),
-};
+// reducer
+export default createReducer(INITIAL_STATE, {
+  [Types.ADD_TODO]: add,
+  [Types.TOGGLE_TODO]: toggle,
+  [Types.REMOVE_TODO]: remove,
+});

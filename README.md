@@ -3,12 +3,16 @@
 
 simple design using redux to learn with flux architecture and duck pattern
 
-#### unsing 
+#### Unsing 
 
 - react-redux
 - redux
 - redux-sauce
 
+
+#### install all dependecies
+
+`npm install`
 
 In the project directory, you can run:
 
